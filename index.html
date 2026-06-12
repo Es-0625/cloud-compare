@@ -1,0 +1,1237 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+	<head>
+		<title>AWS / Azure / GCP / NCP 비교 정리</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			.page-section { display: none; opacity: 0; transform: translateY(0.35rem); transition: opacity 180ms ease, transform 180ms ease; }
+			.page-section.active { display: block; opacity: 1; transform: translateY(0); }
+			#menu a.active { color: #f56a6a !important; }
+			#menu a.active:before { color: #f56a6a; }
+			.section-subhead { margin-top: 2.5em; }
+			.section-subhead h2 { font-size: 1.25em; }
+			.table-wrapper { margin: 1.25em 0 2em 0; overflow-x: auto; }
+			table td, table th { vertical-align: top; }
+			.page-section > h3 { margin-top: 1.75em; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+					<header id="header">
+						<a href="#home" class="logo" data-section="home"><strong>Cloud Compare</strong> AWS / Azure / GCP / NCP</a>
+					</header>
+<section class="page-section active" id="home" data-title="홈">
+<section class="cloud-overview">
+  <header class="major">
+    <h2>클라우드 비교 핵심</h2>
+    <p>서비스 이름보다 역할 기준으로 AWS · Azure · GCP · NCP를 비교합니다.</p>
+  </header>
+
+  <div class="role-flow">
+    <div class="flow-card main">
+      <h3>공통 역할</h3>
+      <p>VM · Network · Storage · DB · IAM · Monitoring</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="cloud-grid">
+      <article class="cloud-card aws">
+        <h3>AWS</h3>
+        <p>실무 범용성</p>
+      </article>
+
+      <article class="cloud-card azure">
+        <h3>Azure</h3>
+        <p>기업 IT 친화성</p>
+      </article>
+
+      <article class="cloud-card gcp">
+        <h3>GCP</h3>
+        <p>구조 이해</p>
+      </article>
+
+      <article class="cloud-card ncp">
+        <h3>NCP</h3>
+        <p>국내 운영 현실성</p>
+      </article>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-card result">
+      <h3>목적에 맞는 선택</h3>
+      <p>클라우드는 순위가 아니라 사용 목적과 운영 환경에 따라 선택합니다.</p>
+    </div>
+  </div>
+</section>
+</section>
+<section class="page-section" id="concept" data-title="1. 기본 개념 매핑">
+<header class="main"><h1>1. 기본 개념 매핑</h1></header>
+<header class="major section-subhead"><h2>이 섹션의 목적</h2></header>
+<p>AWS, Azure, GCP, NCP는 비슷한 기능을 제공하지만 이름과 관리 단위가 다르기 때문에 처음 비교할 때 헷갈리기 쉽다. 그래서 이 섹션에서는 각 클라우드의 서비스를 서비스 이름 기준이 아니라 역할 기준으로 맞춰 본다.</p>
+<p>즉, “AWS의 EC2가 Azure에서는 뭐고, GCP에서는 뭐고, NCP에서는 뭐냐”처럼 같은 역할의 서비스를 서로 대응시키는 것이 목적이다.</p>
+<header class="major section-subhead"><h2>한줄 요약</h2></header>
+<p>네 클라우드는 결국 비슷한 역할의 서비스를 제공하지만, 관리 단위 이름과 서비스 명칭, 그리고 자원을 묶는 방식이 다르다.</p>
+<header class="major section-subhead"><h2>한눈 비교표</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>역할</th>
+<th>AWS</th>
+<th>Azure</th>
+<th>GCP</th>
+<th>NCP</th>
+</tr></thead><tbody>
+<tr>
+<td>최상위 사용 단위</td>
+<td>Account</td>
+<td>Tenant / Subscription</td>
+<td>Organization / Project</td>
+<td>Account / Project 성격</td>
+</tr>
+<tr>
+<td>자원 묶음 단위</td>
+<td>Account, VPC, Tag</td>
+<td>Resource Group</td>
+<td>Project</td>
+<td>Project / VPC</td>
+</tr>
+<tr>
+<td>가상 머신</td>
+<td>EC2</td>
+<td>Virtual Machine</td>
+<td>Compute Engine</td>
+<td>Server</td>
+</tr>
+<tr>
+<td>가상 네트워크</td>
+<td>VPC</td>
+<td>VNet</td>
+<td>VPC</td>
+<td>VPC</td>
+</tr>
+<tr>
+<td>서브넷</td>
+<td>Subnet</td>
+<td>Subnet</td>
+<td>Subnet</td>
+<td>Subnet</td>
+</tr>
+<tr>
+<td>오브젝트 스토리지</td>
+<td>S3</td>
+<td>Blob Storage</td>
+<td>Cloud Storage</td>
+<td>Object Storage</td>
+</tr>
+<tr>
+<td>블록 스토리지</td>
+<td>EBS</td>
+<td>Managed Disk</td>
+<td>Persistent Disk</td>
+<td>Block Storage</td>
+</tr>
+<tr>
+<td>로드밸런서</td>
+<td>ELB / ALB / NLB</td>
+<td>Load Balancer / Application Gateway</td>
+<td>Cloud Load Balancing</td>
+<td>Load Balancer</td>
+</tr>
+<tr>
+<td>관리형 관계형 DB</td>
+<td>RDS</td>
+<td>Azure SQL / Managed DB 계열</td>
+<td>Cloud SQL</td>
+<td>Cloud DB for MySQL/MSSQL 등</td>
+</tr>
+<tr>
+<td>권한 관리</td>
+<td>IAM</td>
+<td>Azure RBAC / Entra ID</td>
+<td>IAM</td>
+<td>Sub Account / 권한관리</td>
+</tr>
+<tr>
+<td>모니터링</td>
+<td>CloudWatch</td>
+<td>Azure Monitor</td>
+<td>Cloud Monitoring / Logging</td>
+<td>Cloud Insight / Monitoring 계열</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>먼저 큰 그림부터 이해하기</h2></header>
+<p>처음 배우는 입장에서는 서비스 이름을 외우려고 하면 오히려 더 헷갈린다. 중요한 건 이름이 아니라 역할이다.</p>
+<p>예를 들어 네 클라우드 모두 다음은 반드시 있다. - 가상 서버를 만드는 서비스 - 네트워크를 만드는 서비스 - 파일을 저장하는 스토리지 서비스 - 데이터베이스 서비스 - 권한을 관리하는 서비스 - 로그와 모니터링 서비스</p>
+<p>즉, 본질적으로는 비슷한 퍼즐 조각을 가지고 있다. 다만 각 회사가 자기 방식의 이름과 구조를 붙였기 때문에 다르게 느껴질 뿐이다.</p>
+<header class="major section-subhead"><h2>구조로 보면 어떻게 다른가</h2></header>
+<h3>AWS</h3>
+<p>AWS는 서비스 이름이 브랜드처럼 굳어져 있다. 예를 들어 EC2, S3, RDS, IAM 같은 이름이 너무 강해서 처음에는 “이게 무슨 약자인지”에 시선이 가지만, 실제로는 각각 VM, 오브젝트 스토리지, 관계형 DB, 권한관리 역할이다.</p>
+<p>AWS는 보통 다음처럼 이해하면 편하다.</p>
+<p>Account 안에 여러 리전이 있고, 그 안에서 VPC와 EC2, RDS 같은 자원을 만든다.</p>
+<p>AWS는 오래된 만큼 서비스 수가 많고, 선택지가 넓고, 실무 레퍼런스도 많다. 대신 처음 볼 때는 이름이 직관적이지 않아서 용어 적응에 시간이 걸릴 수 있다.</p>
+<h3>Azure</h3>
+<p>Azure는 Microsoft 생태계와 연결되는 표현이 많다. 특히 Azure에서 처음 헷갈리기 쉬운 것은 다음 셋이다. - Tenant - Subscription - Resource Group</p>
+<p>Azure는 자원을 만들기 전에 어느 구독에 넣고, 어떤 리소스 그룹에 묶을지를 자주 생각하게 된다. 그래서 서비스 하나하나보다 조직과 자원 묶음 구조가 먼저 눈에 들어온다.</p>
+<h3>GCP</h3>
+<p>GCP는 비교적 기능 중심으로 이름이 직관적인 편이다. - Compute Engine - Cloud Storage - Cloud SQL - Cloud Load Balancing</p>
+<p>이처럼 이름만 봐도 역할이 어느 정도 읽힌다는 장점이 있다. 대신 GCP는 초반에 Project 개념이 매우 중요하다. 많은 자원이 프로젝트 단위로 묶이고, IAM도 프로젝트 기준으로 체감되는 경우가 많다.</p>
+<h3>NCP</h3>
+<p>NCP는 국내 사용자 입장에서 비교적 직관적으로 느껴지는 경우가 많다. 서비스 이름이 아주 난해하지 않고, 콘솔도 국내 실무 환경 기준으로 접근하기 쉬운 편이다.</p>
+<p>특히 다음 같은 점이 장점으로 체감될 수 있다. - 국내 리전/서비스 접근성 - 원화 기반 비용 감각 - 국내 문서/지원/실사용 환경 친화성</p>
+<header class="major section-subhead"><h2>가장 헷갈리는 지점</h2></header>
+
+</section>
+<section class="page-section" id="compute" data-title="2. 컴퓨트 비교">
+<header class="main"><h1>2. 컴퓨트 비교</h1></header>
+<header class="major section-subhead"><h2>이 섹션의 목적</h2></header>
+<p>이 섹션에서는 AWS, Azure, GCP, NCP의 가상 머신 중심 컴퓨트 서비스를 같은 기준으로 비교한다.</p>
+<p>비교의 핵심은 다음과 같다. - VM 서비스 이름이 무엇인지 - 어떤 방식으로 성능을 고르는지 - 네트워크와 어떻게 연결되는지 - 각 클라우드의 컴퓨트 서비스가 어떤 성격을 가지는지 - 실습과 실무에서 어떤 차이로 체감되는지</p>
+<header class="major section-subhead"><h2>한줄 요약</h2></header>
+<p>네 클라우드는 모두 가상 서버를 제공하지만, AWS는 선택지가 매우 넓고, Azure는 기업 환경 친화성이 강하며, GCP는 직관성과 커스텀 구성의 강점이 있고, NCP는 국내 사용 환경 기준으로 접근성이 좋은 편이다.</p>
+<header class="major section-subhead"><h2>한눈 비교표</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>항목</th>
+<th>AWS</th>
+<th>Azure</th>
+<th>GCP</th>
+<th>NCP</th>
+</tr></thead><tbody>
+<tr>
+<td>대표 VM 서비스</td>
+<td>EC2</td>
+<td>Virtual Machines</td>
+<td>Compute Engine</td>
+<td>Server</td>
+</tr>
+<tr>
+<td>기본 이미지 선택</td>
+<td>AMI</td>
+<td>Marketplace / Image</td>
+<td>Public image / Custom image</td>
+<td>서버 이미지</td>
+</tr>
+<tr>
+<td>대표 강점</td>
+<td>인스턴스 종류 다양, 생태계 풍부</td>
+<td>Windows&#183;기업 인프라 친화</td>
+<td>직관적 구성, 커스텀 머신 타입</td>
+<td>국내 사용 편의, 비교적 직관적</td>
+</tr>
+<tr>
+<td>초보자 체감</td>
+<td>선택지가 많아 복잡할 수 있음</td>
+<td>구조 이해 필요</td>
+<td>비교적 단순하고 명확</td>
+<td>국내 사용자 기준 접근 쉬움</td>
+</tr>
+<tr>
+<td>실무에서 자주 언급되는 포인트</td>
+<td>EC2 패밀리, Auto Scaling, AMI</td>
+<td>VM + 디스크 + NSG + RG</td>
+<td>Compute Engine + VPC + IAP</td>
+<td>Server + VPC + 로드밸런서</td>
+</tr>
+<tr>
+<td>접속 방식 체감</td>
+<td>SSH / RDP / SSM 등 다양</td>
+<td>SSH / RDP / Bastion</td>
+<td>SSH / IAP</td>
+<td>SSH / 콘솔 접근</td>
+</tr>
+<tr>
+<td>스펙 설계 특징</td>
+<td>인스턴스 패밀리 다양</td>
+<td>기업 워크로드 친화형</td>
+<td>커스텀 CPU/메모리 강점</td>
+<td>상대적으로 단순한 구성</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>먼저 큰 그림부터 이해하기</h2></header>
+<p>컴퓨트 서비스는 결국 “클라우드에서 서버를 만드는 기능”이다. 운영체제를 올리고, CPU와 메모리를 정하고, 디스크를 붙이고, 네트워크에 연결해 애플리케이션을 실행하는 역할을 한다.</p>
+<header class="major section-subhead"><h2>클라우드별 성격</h2></header>
+<p>AWS의 컴퓨트</p>
+<p>AWS의 대표 VM 서비스는 EC2다. AWS 컴퓨트의 가장 큰 특징은 선택지가 매우 많다는 점이다. 범용형, 컴퓨트 최적화형, 메모리 최적화형, 스토리지 최적화형, GPU 계열, ARM 기반 계열 등 같은 VM이라도 용도에 따라 매우 세분화된 인스턴스 패밀리가 존재한다.</p>
+<p>Azure의 컴퓨트</p>
+<p>Azure의 대표 VM 서비스는 Virtual Machines다. 이 이름 자체는 가장 직관적인 편이지만, 실제 사용에서는 VM 단독보다 Resource Group, Virtual Network, NSG, Public IP, Availability options 같은 주변 구성요소와 함께 체감되는 경우가 많다.</p>
+<p>GCP의 컴퓨트</p>
+<p>GCP의 대표 VM 서비스는 Compute Engine이다. 프로젝트 중심 관리, VPC와의 명확한 연결, IAP를 통한 접속 방식, 커스텀 머신 타입이 자주 언급된다. 특히 CPU와 메모리를 직접 조합하는 커스텀 머신 타입은 GCP의 분명한 강점이다.</p>
+<p>NCP의 컴퓨트</p>
+<p>NCP의 대표 VM 서비스는 보통 Server로 이해하면 된다. 이름이 상대적으로 직관적이어서 국내 사용자 입장에서는 처음 접근이 편하게 느껴질 수 있다. 국내 사용자 중심 콘솔 감각, 원화 비용 감각, 국내 서비스 운영 환경과의 거리감이 적다는 점이 장점으로 체감될 수 있다.</p>
+<header class="major section-subhead"><h2>VM 생성 흐름 비교</h2></header>
+<header class="major section-subhead"><h2>공통 VM 생성 흐름</h2></header>
+<p>계정/프로젝트 선택 → 리전/영역 선택 → 이미지(운영체제) 선택 → CPU/메모리 선택 → 디스크 설정 → 네트워크 연결 → 접속 방식/보안 설정 → 생성</p>
+<header class="major section-subhead"><h2>AWS식 체감 흐름</h2></header>
+<p>AMI 선택 → 인스턴스 타입 선택 → 키 페어 / 보안그룹 → 스토리지 → VPC / Subnet → 생성</p>
+<header class="major section-subhead"><h2>Azure식 체감 흐름</h2></header>
+<p>Subscription / Resource Group → Region → 이미지 → 크기(Size) → 디스크 → VNet / Subnet / Public IP / NSG → 생성</p>
+<header class="major section-subhead"><h2>GCP식 체감 흐름</h2></header>
+<p>Project → Region / Zone → Machine type → Boot disk → VPC / Subnet / External IP → Firewall / IAP / Tag → 생성</p>
+<header class="major section-subhead"><h2>헷갈리기 쉬운 포인트</h2></header>
+
+</section>
+<section class="page-section" id="network" data-title="3. 네트워크 비교">
+<header class="main"><h1>3. 네트워크 비교</h1></header>
+<header class="major section-subhead"><h2>이 섹션의 목적</h2></header>
+<p>이 섹션에서는 AWS, Azure, GCP, NCP의 네트워크 구조를 같은 기준으로 비교한다.</p>
+<p>비교의 핵심은 다음과 같다. - 가상 네트워크의 이름과 범위 - 서브넷이 어디 기준으로 배치되는지 - 인터넷과 연결되는 방식 - 내부 통신과 외부 통신을 어떻게 구분하는지 - 로드밸런서, NAT, 방화벽 같은 네트워크 보안 요소가 어떻게 붙는지</p>
+<header class="major section-subhead"><h2>한줄 요약</h2></header>
+<p>네 클라우드는 모두 가상 네트워크를 만들 수 있지만, AWS는 AZ 단위 설계 감각이 강하고, Azure는 VNet과 서브넷 중심 구조가 직관적이며, GCP는 글로벌 VPC와 리전 서브넷 구조가 특징적이고, NCP는 국내 사용자 기준으로 비교적 단순하게 체감될 수 있다.</p>
+<header class="major section-subhead"><h2>한눈 비교표</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>항목</th>
+<th>AWS</th>
+<th>Azure</th>
+<th>GCP</th>
+<th>NCP</th>
+</tr></thead><tbody>
+<tr>
+<td>가상 네트워크 이름</td>
+<td>VPC</td>
+<td>VNet</td>
+<td>VPC</td>
+<td>VPC</td>
+</tr>
+<tr>
+<td>서브넷 이름</td>
+<td>Subnet</td>
+<td>Subnet</td>
+<td>Subnet</td>
+<td>Subnet</td>
+</tr>
+<tr>
+<td>네트워크 범위 체감</td>
+<td>리전 단위 VPC</td>
+<td>리전 단위 VNet</td>
+<td>글로벌 VPC</td>
+<td>서비스 구조 기준</td>
+</tr>
+<tr>
+<td>서브넷 배치 관점</td>
+<td>AZ와 함께 강하게 의식</td>
+<td>VNet 내부 논리 분할</td>
+<td>리전별 서브넷</td>
+<td>VPC 내부 분할</td>
+</tr>
+<tr>
+<td>외부 인터넷 연결</td>
+<td>IGW, NAT Gateway</td>
+<td>Public IP, NAT Gateway, LB</td>
+<td>External IP, Cloud NAT, Load Balancing</td>
+<td>Public IP, NAT, LB</td>
+</tr>
+<tr>
+<td>내부/외부 구분</td>
+<td>Public / Private Subnet 구조 자주 사용</td>
+<td>Public IP 유무와 NSG로 체감</td>
+<td>Internal / External IP 개념이 선명</td>
+<td>공인/사설망 구분 중심</td>
+</tr>
+<tr>
+<td>대표 방화벽/보안 제어</td>
+<td>Security Group, NACL</td>
+<td>NSG</td>
+<td>VPC Firewall Rules</td>
+<td>ACG / 방화벽 계열</td>
+</tr>
+<tr>
+<td>네트워크 설계 체감</td>
+<td>세밀하고 구조적</td>
+<td>기업형 자원 구조와 결합</td>
+<td>개념이 깔끔하고 비교적 선명</td>
+<td>국내 사용자 기준 직관적</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>먼저 큰 그림부터 이해하기</h2></header>
+<p>클라우드 네트워크는 결국 다음 질문에 답하는 구조다. - 서버끼리는 어떻게 통신하는가 - 외부 인터넷에서는 어떻게 들어오는가 - 내부 서버는 인터넷에 어떻게 나가는가 - 어느 서버를 외부에 노출하고 어느 서버를 내부에 둘 것인가 - 접근 허용과 차단은 어디서 제어하는가</p>
+<header class="major section-subhead"><h2>가장 먼저 봐야 하는 구조 차이</h2></header>
+<h3>AWS</h3>
+<h3>Region</h3>
+<p>└─ VPC</p>
+<p>├─ Subnet (AZ-a)</p>
+<p>├─ Subnet (AZ-b)</p>
+<p>├─ Route Table</p>
+<p>├─ Internet Gateway</p>
+<p>└─ NAT Gateway</p>
+<p>AWS는 VPC 자체는 리전 수준으로 보지만, 실제 서브넷 설계에서는 가용 영역(AZ)을 매우 강하게 의식하게 된다.</p>
+<h3>Azure</h3>
+<h3>Subscription</h3>
+<p>└─ Resource Group</p>
+<p>└─ VNet</p>
+<p>├─ Subnet</p>
+<p>├─ NSG</p>
+<p>├─ Public IP</p>
+<p>└─ Load Balancer / Application Gateway</p>
+<p>Azure는 VNet이 가상 네트워크 역할을 하며, 그 안에 서브넷을 나눈다. 구조 자체는 직관적이지만 Resource Group, NSG, Public IP, LB와 함께 묶여 보이는 느낌이 강하다.</p>
+<h3>GCP</h3>
+<h3>Project</h3>
+<p>└─ Global VPC</p>
+<p>├─ Subnet (asia-northeast3)</p>
+<p>├─ Subnet (asia-northeast1)</p>
+<p>├─ Firewall Rules</p>
+<p>├─ Routes</p>
+<p>└─ Cloud NAT / Load Balancing</p>
+<p>GCP는 VPC는 글로벌, 서브넷은 리전 단위라는 점이 핵심이다.</p>
+<h3>NCP</h3>
+<h3>Project / Account</h3>
+<p>└─ VPC</p>
+<p>├─ Subnet</p>
+<p>├─ Public / Private 구성</p>
+<p>├─ ACG / 방화벽</p>
+<p>└─ Load Balancer / NAT</p>
+<p>NCP 역시 VPC와 서브넷, 공인 IP, 로드밸런서, 방화벽 계열 구성을 가지며, 국내 사용자 입장에서는 콘솔 흐름이 비교적 직관적으로 느껴지는 경우가 있다.</p>
+<header class="major section-subhead"><h2>Public / Private 구조는 어떻게 봐야 하나</h2></header>
+<h3>Internet</h3>
+<p>↓</p>
+<p>[Public IP / Load Balancer]</p>
+<p>↓</p>
+<p>[Public Subnet or Public-facing Tier]</p>
+<p>↓</p>
+<p>[Private Subnet / App Tier]</p>
+<p>↓</p>
+<p>[DB / Internal Service]</p>
+<p>↓</p>
+<p>[NAT for outbound]</p>
+<p>이 구조는 네 클라우드 모두에 거의 공통으로 적용할 수 있다. 다만 이름과 연결 장치가 다를 뿐이다.</p>
+<header class="major section-subhead"><h2>헷갈리기 쉬운 포인트</h2></header>
+
+</section>
+<section class="page-section" id="storage" data-title="4. 스토리지 비교">
+<header class="main"><h1>4. 스토리지 비교</h1></header>
+<header class="major section-subhead"><h2>이 섹션의 목적</h2></header>
+<p>이 섹션에서는 AWS, Azure, GCP, NCP의 스토리지 서비스를 역할 기준으로 비교한다.</p>
+<p>비교의 핵심은 다음과 같다. - 파일을 객체 단위로 저장하는 서비스는 무엇인지 - VM 디스크로 붙는 저장소는 무엇인지 - 여러 서버가 공유해서 쓰는 파일 스토리지는 무엇인지 - 각 스토리지가 어떤 상황에서 쓰이는지</p>
+<header class="major section-subhead"><h2>한줄 요약</h2></header>
+<p>네 클라우드는 모두 스토리지를 제공하지만, 비교는 서비스 이름이 아니라 오브젝트 / 블록 / 파일의 역할 구분부터 시작해야 이해가 쉽다.</p>
+<header class="major section-subhead"><h2>한눈 비교표</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>역할</th>
+<th>AWS</th>
+<th>Azure</th>
+<th>GCP</th>
+<th>NCP</th>
+</tr></thead><tbody>
+<tr>
+<td>오브젝트 스토리지</td>
+<td>S3</td>
+<td>Blob Storage</td>
+<td>Cloud Storage</td>
+<td>Object Storage</td>
+</tr>
+<tr>
+<td>블록 스토리지</td>
+<td>EBS</td>
+<td>Managed Disk</td>
+<td>Persistent Disk</td>
+<td>Block Storage</td>
+</tr>
+<tr>
+<td>파일 스토리지</td>
+<td>EFS / FSx</td>
+<td>Azure Files</td>
+<td>Filestore</td>
+<td>NAS / File Storage 계열</td>
+</tr>
+<tr>
+<td>대표 사용 예</td>
+<td>이미지, 백업, 정적 파일</td>
+<td>이미지, 백업, 정적 파일</td>
+<td>이미지, 백업, 정적 파일</td>
+<td>이미지, 백업, 정적 파일</td>
+</tr>
+<tr>
+<td>VM에 직접 붙는 디스크</td>
+<td>EBS</td>
+<td>Managed Disk</td>
+<td>Persistent Disk</td>
+<td>Block Storage</td>
+</tr>
+<tr>
+<td>여러 서버가 같이 쓰는 공유 저장소</td>
+<td>EFS / FSx</td>
+<td>Azure Files</td>
+<td>Filestore</td>
+<td>NAS 계열</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>먼저 큰 그림부터 이해하기</h2></header>
+<p>오브젝트 스토리지</p>
+<p>파일을 객체 단위로 저장하는 방식이다. 이미지, 동영상, 백업 파일, 로그 파일, 정적 웹 자산, 업로드 파일 저장에 많이 쓴다.</p>
+<p>블록 스토리지</p>
+<p>VM에 디스크처럼 붙는 저장소다. 운영체제가 설치되거나 데이터 디스크로 붙는 형태다.</p>
+<p>파일 스토리지</p>
+<p>여러 서버가 같은 파일 시스템을 공유해야 할 때 쓰는 저장소다. 예를 들면 웹 서버 여러 대가 같은 파일을 같이 봐야 할 때 쓰기 좋다.</p>
+<header class="major section-subhead"><h2>클라우드별 성격</h2></header>
+<p>AWS의 스토리지</p>
+<p>AWS에서는 S3, EBS, EFS / FSx로 역할을 나눠 보면 이해가 쉽다. AWS 스토리지의 특징은 서비스 종류가 많고, 세부 옵션이 다양하며, 용도 구분이 비교적 잘 되어 있다는 점이다.</p>
+<p>Azure의 스토리지</p>
+<p>Azure는 Blob Storage, Managed Disk, Azure Files로 정리하면 된다. Azure는 서비스 이름보다 스토리지 계정(Storage Account) 개념과 함께 체감되는 경우가 많다.</p>
+<p>GCP의 스토리지</p>
+<p>GCP는 Cloud Storage, Persistent Disk, Filestore처럼 이름이 비교적 직관적이다. 이름만 보면 역할을 읽기 쉬운 편이라 학습할 때 장점이 있다.</p>
+<p>NCP의 스토리지</p>
+<p>NCP는 Object Storage, Block Storage, NAS / File Storage 계열처럼 역할이 비교적 잘 드러난다. 국내 사용자 기준으로 용도를 떠올리기 비교적 쉽다는 점이 장점이다.</p>
+<header class="major section-subhead"><h2>구조로 보면 어떻게 다른가</h2></header>
+<p>오브젝트 스토리지 구조</p>
+<p>애플리케이션 / 사용자</p>
+<p>↓</p>
+<p>업로드 / 다운로드</p>
+<p>↓</p>
+<h3>Object Storage</h3>
+<p>↓</p>
+<p>이미지 / 동영상 / 백업 / 로그 / 정적 파일</p>
+<p>블록 스토리지 구조</p>
+<h3>VM / Server</h3>
+<p>↓</p>
+<h3>Attached Disk</h3>
+<p>↓</p>
+<h3>OS / DB / Application Data</h3>
+<p>파일 스토리지 구조</p>
+<p>Web Server 1 ─┐</p>
+<p>App Server  ──┼── Shared File Storage</p>
+<p>Web Server 2 ─┘</p>
+<header class="major section-subhead"><h2>실제로 어디에 쓰는가</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>사용 사례</th>
+<th>추천 저장 방식</th>
+<th>이유</th>
+</tr></thead><tbody>
+<tr>
+<td>사용자 업로드 이미지 저장</td>
+<td>오브젝트 스토리지</td>
+<td>대량 파일 관리와 웹 연동에 적합</td>
+</tr>
+<tr>
+<td>웹 정적 파일 배포</td>
+<td>오브젝트 스토리지</td>
+<td>정적 자산 보관과 제공이 쉬움</td>
+</tr>
+<tr>
+<td>VM 운영체제 디스크</td>
+<td>블록 스토리지</td>
+<td>서버에 직접 붙는 디스크가 필요</td>
+</tr>
+<tr>
+<td>DB 데이터 저장</td>
+<td>블록 스토리지</td>
+<td>안정적인 디스크 I/O가 중요</td>
+</tr>
+<tr>
+<td>여러 서버의 공용 업로드 폴더</td>
+<td>파일 스토리지</td>
+<td>동시에 공유 접근이 필요</td>
+</tr>
+<tr>
+<td>백업 파일 장기 저장</td>
+<td>오브젝트 스토리지</td>
+<td>대량 저장과 비용 효율에 유리</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>헷갈리기 쉬운 포인트</h2></header>
+
+</section>
+<section class="page-section" id="database" data-title="5. 데이터베이스 비교">
+<header class="main"><h1>5. 데이터베이스 비교</h1></header>
+<header class="major section-subhead"><h2>이 섹션의 목적</h2></header>
+<p>이 섹션에서는 AWS, Azure, GCP, NCP의 데이터베이스 서비스를 역할 기준으로 비교한다.</p>
+<p>비교의 핵심은 다음과 같다. - 관리형 관계형 데이터베이스 서비스는 무엇인지 - NoSQL 계열 서비스는 무엇이 있는지 - 캐시/인메모리 저장소는 어떻게 대응되는지 - 각 클라우드가 데이터베이스를 어떤 방식으로 운영하게 만드는지</p>
+<header class="major section-subhead"><h2>한줄 요약</h2></header>
+<p>네 클라우드는 모두 관리형 데이터베이스를 제공하지만, 비교는 서비스 이름보다 관계형 DB / NoSQL / 캐시 역할 구분부터 시작해야 가장 깔끔하다.</p>
+<header class="major section-subhead"><h2>한눈 비교표</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>역할</th>
+<th>AWS</th>
+<th>Azure</th>
+<th>GCP</th>
+<th>NCP</th>
+</tr></thead><tbody>
+<tr>
+<td>관리형 관계형 DB</td>
+<td>RDS / Aurora</td>
+<td>Azure SQL / Azure Database 계열</td>
+<td>Cloud SQL</td>
+<td>Cloud DB for MySQL / MSSQL / PostgreSQL 계열</td>
+</tr>
+<tr>
+<td>대표 MySQL/PostgreSQL 관리형</td>
+<td>RDS</td>
+<td>Azure Database for MySQL/PostgreSQL</td>
+<td>Cloud SQL for MySQL/PostgreSQL</td>
+<td>Cloud DB for MySQL/PostgreSQL</td>
+</tr>
+<tr>
+<td>대표 고성능/클라우드 최적화 RDB</td>
+<td>Aurora</td>
+<td>Azure SQL Managed Instance / Hyperscale 계열</td>
+<td>Spanner(성격 다름)</td>
+<td>서비스별 확인 필요</td>
+</tr>
+<tr>
+<td>NoSQL 대표 서비스</td>
+<td>DynamoDB</td>
+<td>Cosmos DB</td>
+<td>Firestore / Bigtable</td>
+<td>NoSQL 계열 서비스</td>
+</tr>
+<tr>
+<td>캐시 / 인메모리</td>
+<td>ElastiCache</td>
+<td>Azure Cache for Redis</td>
+<td>Memorystore</td>
+<td>Redis 계열 / 캐시 서비스</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>먼저 큰 그림부터 이해하기</h2></header>
+<p>관계형 데이터베이스</p>
+<p>테이블, 행, 열, SQL 기반으로 다루는 전통적인 구조다. 회원 정보, 주문 데이터, 결제 내역, 게시글 / 댓글, 재고 / 상품 관리 같은 정형 데이터는 보통 관계형 DB가 많이 쓰인다.</p>
+<p>NoSQL 데이터베이스</p>
+<p>엄격한 테이블 구조보다 유연한 저장 구조가 필요한 경우 사용한다. 문서형 데이터, 키-값 저장, 대규모 세션 데이터, 이벤트성 데이터, 초고속 읽기/쓰기 워크로드에서 자주 거론된다.</p>
+<p>캐시 / 인메모리 저장소</p>
+<p>영구 저장소라기보다 속도 개선용에 가깝다. 로그인 세션 저장, 자주 조회되는 데이터 캐싱, 랭킹 / 카운터, 실시간 응답 속도 개선 등에 쓴다.</p>
+<header class="major section-subhead"><h2>클라우드별 성격</h2></header>
+<p>AWS의 데이터베이스</p>
+<p>AWS는 RDS, Aurora, DynamoDB, ElastiCache 같은 구성이 매우 풍부하다. 서비스 종류가 많고, 실무 레퍼런스가 풍부하며, 역할 구분이 비교적 선명하다는 점이 특징이다.</p>
+<p>Azure의 데이터베이스</p>
+<p>Azure는 Azure SQL Database, Azure SQL Managed Instance, Azure Database for MySQL/PostgreSQL, Cosmos DB, Azure Cache for Redis처럼 이름이 조금 더 구조적으로 보인다. 특히 SQL 계열 서비스가 여러 층으로 나뉘어 보이는 느낌이 있다.</p>
+<p>GCP의 데이터베이스</p>
+<p>GCP는 Cloud SQL, Firestore, Bigtable, Memorystore, Spanner가 대표적이다. Cloud SQL은 매우 직관적이고, Spanner는 GCP의 분산형 글로벌 데이터베이스 철학이 반영된 별도 성격의 서비스로 보는 것이 맞다.</p>
+<p>NCP의 데이터베이스</p>
+<p>NCP는 Cloud DB for MySQL, Cloud DB for MSSQL, Cloud DB for PostgreSQL과 캐시/인메모리 계열 서비스처럼 엔진 기반 이름이 비교적 바로 읽힌다.</p>
+<header class="major section-subhead"><h2>역할별 구조로 보면 어떻게 다른가</h2></header>
+<p>관계형 DB 구조</p>
+<h3>App / API Server</h3>
+<p>↓</p>
+<h3>Managed Relational DB</h3>
+<p>↓</p>
+<p>회원 / 주문 / 결제 / 게시글 / 재고</p>
+<p>NoSQL 구조</p>
+<h3>App / Service</h3>
+<p>↓</p>
+<h3>NoSQL Database</h3>
+<p>↓</p>
+<p>세션 / 문서형 데이터 / 이벤트 / 대규모 읽기쓰기</p>
+<p>캐시 구조</p>
+<h3>User Request</h3>
+<p>↓</p>
+<h3>App Server</h3>
+<p>├─ Cache hit  → 빠른 응답</p>
+<p>└─ Cache miss → DB 조회 후 캐시 저장</p>
+<header class="major section-subhead"><h2>헷갈리기 쉬운 포인트</h2></header>
+
+</section>
+<section class="page-section" id="iam" data-title="6. IAM / 권한 관리 비교">
+<header class="main"><h1>6. IAM / 권한 관리 비교</h1></header>
+<header class="major section-subhead"><h2>이 섹션의 목적</h2></header>
+<p>이 섹션에서는 AWS, Azure, GCP, NCP의 권한 관리 체계를 역할 기준과 계층 기준으로 비교한다.</p>
+<p>비교의 핵심은 다음과 같다. - 권한이 어디에 걸리는지 - 사용자, 그룹, 역할을 어떻게 나누는지 - 자원 단위 권한 부여가 어떤 구조로 이뤄지는지 - 조직 단위와 프로젝트/구독 단위 권한이 어떻게 구분되는지</p>
+<header class="major section-subhead"><h2>한줄 요약</h2></header>
+<p>네 클라우드는 모두 권한 관리 기능을 제공하지만, AWS는 정책 중심, Azure는 조직과 RBAC 중심, GCP는 프로젝트 중심, NCP는 계정과 서브 계정/권한 구조 중심으로 체감되는 경향이 있다.</p>
+<header class="major section-subhead"><h2>한눈 비교표</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>항목</th>
+<th>AWS</th>
+<th>Azure</th>
+<th>GCP</th>
+<th>NCP</th>
+</tr></thead><tbody>
+<tr>
+<td>대표 권한 관리 이름</td>
+<td>IAM</td>
+<td>Azure RBAC / Entra ID</td>
+<td>IAM</td>
+<td>서브 계정 / 권한 관리</td>
+</tr>
+<tr>
+<td>기본 사고방식</td>
+<td>사용자/역할에 정책 부여</td>
+<td>조직 구조 + 역할 부여</td>
+<td>프로젝트/리소스에 역할 부여</td>
+<td>계정 기반 권한 분리</td>
+</tr>
+<tr>
+<td>자원 적용 범위 체감</td>
+<td>Account 중심에서 세분화</td>
+<td>Tenant / Subscription / Resource Group / Resource</td>
+<td>Organization / Folder / Project / Resource</td>
+<td>Account / Project / 서비스 권한</td>
+</tr>
+<tr>
+<td>대표 구성 요소</td>
+<td>User, Group, Role, Policy</td>
+<td>User, Group, Role, Scope</td>
+<td>Principal, Role, Resource</td>
+<td>계정, 서브 계정, 권한 정책</td>
+</tr>
+<tr>
+<td>초보자 체감 난점</td>
+<td>Policy JSON과 권한 범위</td>
+<td>구조 계층이 많음</td>
+<td>프로젝트 단위 역할 이해</td>
+<td>세부 서비스 권한 구조 파악</td>
+</tr>
+<tr>
+<td>실무 핵심 포인트</td>
+<td>최소 권한, Role 활용</td>
+<td>RBAC 범위와 상속</td>
+<td>프로젝트 단위 권한 설계</td>
+<td>운영자/개발자 권한 분리</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>먼저 큰 그림부터 이해하기</h2></header>
+<p>IAM은 결국 아래 질문에 답하는 체계다. - 누가 - 어떤 자원에 - 무엇을 할 수 있는가</p>
+<p>즉, 클라우드 권한 관리는 다음 세 요소로 요약할 수 있다. 1. 주체(Principal) 2. 대상(Resource) 3. 권한(Role / Policy / Permission)</p>
+<header class="major section-subhead"><h2>클라우드별 성격</h2></header>
+<p>AWS의 IAM</p>
+<p>AWS IAM을 이해할 때 가장 먼저 보게 되는 것은 User, Group, Role, Policy다. AWS의 핵심은 정책(Policy)이다. 어떤 사용자가 무엇을 할 수 있는지를 정책 문서로 매우 세밀하게 제어한다.</p>
+<p>Azure의 IAM</p>
+<p>Azure는 권한 관리를 볼 때 Entra ID + Azure RBAC + Scope 구조를 함께 보게 된다. Azure에서 핵심은 역할(Role)을 어떤 범위(Scope)에 부여하느냐다.</p>
+<p>GCP의 IAM</p>
+<p>GCP는 Organization, Folder, Project, Resource 계층이 비교적 선명하게 보인다. 그리고 여기에 사용자나 서비스 계정에 역할(Role)을 부여한다. GCP IAM의 특징은 프로젝트 단위 체감이 매우 강하다는 점이다.</p>
+<p>NCP의 권한 관리</p>
+<p>NCP는 보통 계정과 서브 계정, 그리고 서비스별 권한 관리 구조를 중심으로 이해하면 편하다. 운영 계정, 개발자 계정, 조회 전용 계정, 특정 서비스 접근 전용 계정 같은 운영 역할 분리 관점으로 쓰면 문서가 자연스럽다.</p>
+<header class="major section-subhead"><h2>구조로 보면 어떻게 다른가</h2></header>
+<p>AWS IAM 구조</p>
+<h3>Account</h3>
+<p>├─ IAM User</p>
+<p>├─ IAM Group</p>
+<p>├─ IAM Role</p>
+<p>└─ Policy</p>
+<p>Azure IAM 구조</p>
+<h3>Tenant</h3>
+<p>└─ Subscription</p>
+<p>└─ Resource Group</p>
+<p>└─ Resource</p>
+<p>↑</p>
+<h3>Role Assignment</h3>
+<p>GCP IAM 구조</p>
+<h3>Organization</h3>
+<p>└─ Folder</p>
+<p>└─ Project</p>
+<p>└─ Resource</p>
+<p>↑</p>
+<h3>IAM Role</h3>
+<p>NCP 권한 구조</p>
+<h3>Account</h3>
+<p>├─ Sub Account</p>
+<p>├─ Project / Service Access</p>
+<p>└─ Role / Permission</p>
+<header class="major section-subhead"><h2>실제로 어디에 쓰는가</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>역할</th>
+<th>필요한 권한 예시</th>
+<th>문서화 포인트</th>
+</tr></thead><tbody>
+<tr>
+<td>관리자</td>
+<td>전체 리소스 생성/수정/삭제</td>
+<td>모든 권한을 주되 최소화 검토</td>
+</tr>
+<tr>
+<td>개발자</td>
+<td>VM/앱 배포, 로그 확인</td>
+<td>운영 파괴 권한은 제한</td>
+</tr>
+<tr>
+<td>운영자</td>
+<td>모니터링, 재시작, 점검</td>
+<td>배포 권한과 분리 가능</td>
+</tr>
+<tr>
+<td>보안 담당</td>
+<td>IAM, 감사 로그 조회</td>
+<td>자원 생성 권한과 분리</td>
+</tr>
+<tr>
+<td>조회 전용 사용자</td>
+<td>리소스 보기, 로그 보기</td>
+<td>수정 권한 없이 읽기만 허용</td>
+</tr>
+<tr>
+<td>서비스 계정</td>
+<td>특정 API / 리소스 접근</td>
+<td>사람 계정과 분리해서 관리</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>최소 권한 원칙은 공통이다</h2></header>
+<p>필요한 권한만 주고, 불필요한 권한은 주지 않는다. - 관리자 권한 남발 금지 - 서비스 계정과 사용자 계정 분리 - 운영/개발/조회 역할 분리 - 프로젝트/구독/리소스 범위 최소화 - 감사 로그와 권한 변경 이력 확인</p>
+<header class="major section-subhead"><h2>헷갈리기 쉬운 포인트</h2></header>
+
+</section>
+<section class="page-section" id="monitoring" data-title="7. 모니터링 / 로깅 비교">
+<header class="main"><h1>7. 모니터링 / 로깅 비교</h1></header>
+<header class="major section-subhead"><h2>이 섹션의 목적</h2></header>
+<p>이 섹션에서는 AWS, Azure, GCP, NCP의 모니터링과 로깅 기능을 운영 관점에서 비교한다.</p>
+<p>비교의 핵심은 다음과 같다. - 메트릭을 어디서 보는지 - 로그를 어디서 보는지 - 경보/알람은 어떻게 거는지 - 리소스 상태와 애플리케이션 상태를 어떻게 나눠서 보는지</p>
+<header class="major section-subhead"><h2>한줄 요약</h2></header>
+<p>네 클라우드는 모두 메트릭, 로그, 알람 기능을 제공하지만, 비교는 서비스 이름보다 무엇을 보고, 어디서 보고, 어떻게 알림을 받는지 기준으로 해야 가장 이해가 쉽다.</p>
+<header class="major section-subhead"><h2>한눈 비교표</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>역할</th>
+<th>AWS</th>
+<th>Azure</th>
+<th>GCP</th>
+<th>NCP</th>
+</tr></thead><tbody>
+<tr>
+<td>대표 모니터링</td>
+<td>CloudWatch</td>
+<td>Azure Monitor</td>
+<td>Cloud Monitoring</td>
+<td>Monitoring 계열</td>
+</tr>
+<tr>
+<td>대표 로그 서비스</td>
+<td>CloudWatch Logs</td>
+<td>Log Analytics / Azure Monitor Logs</td>
+<td>Cloud Logging</td>
+<td>Logging 계열</td>
+</tr>
+<tr>
+<td>알람/경보</td>
+<td>CloudWatch Alarm</td>
+<td>Azure Alerts</td>
+<td>Alerting Policy</td>
+<td>Alert 기능</td>
+</tr>
+<tr>
+<td>대시보드</td>
+<td>CloudWatch Dashboard</td>
+<td>Azure Dashboard / Workbook</td>
+<td>Cloud Monitoring Dashboard</td>
+<td>Monitoring Dashboard</td>
+</tr>
+<tr>
+<td>추적/분석 확장</td>
+<td>X-Ray 등</td>
+<td>Application Insights</td>
+<td>Cloud Trace / Error Reporting</td>
+<td>서비스별 지원</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>먼저 큰 그림부터 이해하기</h2></header>
+<p>운영 관찰성은 크게 세 가지로 나누는 것이 가장 좋다.</p>
+<p>메트릭(Metrics)</p>
+<p>숫자로 보는 상태다. CPU 사용률, 메모리 사용률, 디스크 사용량, 네트워크 트래픽, 요청 수, 에러율, 응답 시간 등을 본다.</p>
+<p>로그(Logs)</p>
+<p>이벤트와 기록을 텍스트/구조화 데이터 형태로 보는 것이다. 애플리케이션 에러 로그, 웹 서버 접근 로그, 방화벽 로그, VM 시스템 로그, 감사 로그 등을 본다.</p>
+<p>알람(Alert)</p>
+<p>문제가 생겼을 때 알려주는 기능이다. CPU 80% 이상 5분 지속, 디스크 용량 90% 초과, 특정 로그 패턴 발생, VM 중지 같은 이벤트에 대해 설정한다.</p>
+<header class="major section-subhead"><h2>클라우드별 성격</h2></header>
+<p>AWS의 모니터링 / 로깅</p>
+<p>AWS에서는 보통 CloudWatch가 중심축처럼 느껴진다. CloudWatch Metrics, CloudWatch Logs, CloudWatch Alarm, CloudWatch Dashboard처럼 모니터링과 로그, 알람이 CloudWatch라는 큰 축 안에서 비교적 강하게 묶여 보인다.</p>
+<p>Azure의 모니터링 / 로깅</p>
+<p>Azure는 Azure Monitor, Log Analytics, Alerts, Application Insights가 같이 등장한다. 메트릭은 Azure Monitor, 로그 분석은 Log Analytics, 앱 단위 관찰은 Application Insights처럼 나뉘어 보이는 경우가 많다.</p>
+<p>GCP의 모니터링 / 로깅</p>
+<p>GCP는 Cloud Monitoring, Cloud Logging, Alerting, Error Reporting, Trace / Profiler 계열처럼 이름이 비교적 직관적이다. Monitoring과 Logging이 역할별로 분리되어 보인다는 점이 장점이다.</p>
+<p>NCP의 모니터링 / 로깅</p>
+<p>NCP는 서비스 운영 관점에서 서버 상태 모니터링, 네트워크 트래픽 확인, 알람 설정, 로그 수집과 조회를 실무적으로 이해하는 쪽이 자연스럽다.</p>
+<header class="major section-subhead"><h2>구조로 보면 어떻게 다른가</h2></header>
+<p>공통 관찰성 구조</p>
+<p>리소스 / 애플리케이션</p>
+<p>↓</p>
+<p>메트릭 수집 / 로그 수집</p>
+<p>↓</p>
+<p>대시보드 / 검색 / 필터링</p>
+<p>↓</p>
+<p>경보 정책 / 알림</p>
+<p>↓</p>
+<p>운영 대응</p>
+<header class="major section-subhead"><h2>실제로 어디에 쓰는가</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>상황</th>
+<th>봐야 하는 것</th>
+<th>이유</th>
+</tr></thead><tbody>
+<tr>
+<td>서버가 느려짐</td>
+<td>CPU, 메모리, 디스크 메트릭</td>
+<td>리소스 병목 여부 확인</td>
+</tr>
+<tr>
+<td>웹 응답이 느려짐</td>
+<td>요청 수, 응답 시간, 에러율</td>
+<td>서비스 성능 이상 여부 판단</td>
+</tr>
+<tr>
+<td>접속이 안 됨</td>
+<td>LB 상태, 방화벽 로그, 네트워크 로그</td>
+<td>연결 경로 문제 확인</td>
+</tr>
+<tr>
+<td>앱 오류 발생</td>
+<td>애플리케이션 로그</td>
+<td>예외/오류 원인 확인</td>
+</tr>
+<tr>
+<td>DB 문제 발생</td>
+<td>DB 메트릭, 연결 수, 느린 쿼리 로그</td>
+<td>데이터 계층 병목 확인</td>
+</tr>
+<tr>
+<td>갑작스런 장애 발생</td>
+<td>알람, 최근 로그, 이벤트 시점</td>
+<td>언제 무엇이 바뀌었는지 추적</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>헷갈리기 쉬운 포인트</h2></header>
+
+</section>
+<section class="page-section" id="pricing" data-title="8. 가격 / 과금 비교">
+<header class="main"><h1>8. 가격 / 과금 비교</h1></header>
+<header class="major section-subhead"><h2>이 섹션의 목적</h2></header>
+<p>이 섹션에서는 AWS, Azure, GCP, NCP의 가격 체계를 숫자 나열이 아니라 과금 구조 기준으로 비교한다.</p>
+<p>비교의 핵심은 다음과 같다. - 과금이 어떤 단위로 발생하는지 - 계산기를 통해 무엇을 미리 추정할 수 있는지 - VM, 스토리지, 네트워크처럼 어떤 항목이 따로 붙는지 - 할인, 약정, 사용량 기반 절감 요소가 있는지 - 초보자가 어디서부터 비용을 헷갈리는지</p>
+<header class="major section-subhead"><h2>한줄 요약</h2></header>
+<p>네 클라우드는 모두 가격 계산기와 상품별 가격표를 제공하지만, 비교는 단일 숫자보다 컴퓨트, 스토리지, 네트워크, 부가 서비스가 어떻게 합산되는지 기준으로 해야 가장 실용적이다.</p>
+<header class="major section-subhead"><h2>한눈 비교표</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>항목</th>
+<th>AWS</th>
+<th>Azure</th>
+<th>GCP</th>
+<th>NCP</th>
+</tr></thead><tbody>
+<tr>
+<td>공식 가격 계산기</td>
+<td>AWS Pricing Calculator</td>
+<td>Azure Pricing Calculator</td>
+<td>Google Cloud Pricing Calculator</td>
+<td>Naver Cloud 요금계산기</td>
+</tr>
+<tr>
+<td>가격 문서 성격</td>
+<td>제품별 가격 페이지 + 계산기 + 약정/절감 반영 가능</td>
+<td>가격 개요 + 계산기 + 구매 옵션 설명</td>
+<td>가격 개요 + 계산기 + 제품별 가격표</td>
+<td>계산기 중심 추정 + 실제 청구 차이 안내</td>
+</tr>
+<tr>
+<td>초보자 체감 난점</td>
+<td>항목이 많아 합산 구조가 복잡</td>
+<td>구매 옵션과 범위가 다양</td>
+<td>할인 구조와 네트워크 과금 구간 이해 필요</td>
+<td>지역/환율/부가 항목 확인 필요</td>
+</tr>
+<tr>
+<td>문서화 추천 방식</td>
+<td>구성요소별 합산 구조 강조</td>
+<td>계산기 사용 흐름 강조</td>
+<td>제품별 가격표보다 구조 비교 강조</td>
+<td>실제 청구와 추정 차이 주의 문구 강조</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>먼저 큰 그림부터 이해하기</h2></header>
+<p>클라우드 비용은 보통 한 항목으로 끝나지 않는다. 예를 들어 VM 하나를 만든다고 해서 비용이 VM 가격만 붙는 경우는 드물다.</p>
+<p>보통은 다음이 합쳐진다. - 컴퓨트 비용: VM 자체, vCPU, 메모리 - 스토리지 비용: 디스크, 스냅샷, 백업 - 네트워크 비용: 공인 IP, 인터넷 아웃바운드, 로드밸런서, NAT - 관리형 서비스 비용: DB, 모니터링, 로그, 보안 - 운영 옵션 비용: 약정 할인, 예약, 절감형 플랜</p>
+<header class="major section-subhead"><h2>가격은 어떻게 합산되는가</h2></header>
+<p>월 비용</p>
+<p>= 컴퓨트</p>
+<p>+ 디스크</p>
+<p>+ 스냅샷/백업</p>
+<p>+ 공인 IP / 네트워크 아웃바운드</p>
+<p>+ 로드밸런서 / NAT</p>
+<p>+ 관리형 DB</p>
+<p>+ 로그 / 모니터링 / 기타 부가 서비스</p>
+<header class="major section-subhead"><h2>실제 문서에 넣기 좋은 비교 방식</h2></header>
+<p>과금 항목 분해표</p>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>구성 요소</th>
+<th>왜 비용이 붙는가</th>
+<th>초보자가 놓치기 쉬운 점</th>
+</tr></thead><tbody>
+<tr>
+<td>VM</td>
+<td>vCPU, 메모리 사용</td>
+<td>VM만 보고 끝내기 쉬움</td>
+</tr>
+<tr>
+<td>디스크</td>
+<td>OS 디스크, 데이터 디스크</td>
+<td>용량/종류 따라 추가 비용</td>
+</tr>
+<tr>
+<td>공인 IP</td>
+<td>외부 노출 주소</td>
+<td>유휴/비무료 조건 놓치기 쉬움</td>
+</tr>
+<tr>
+<td>네트워크 전송</td>
+<td>인터넷으로 나가는 데이터</td>
+<td>인바운드만 생각하고 아웃바운드 놓침</td>
+</tr>
+<tr>
+<td>로드밸런서</td>
+<td>트래픽 분산</td>
+<td>서비스 자체 과금 + 데이터 처리량</td>
+</tr>
+<tr>
+<td>NAT</td>
+<td>내부 서버의 인터넷 아웃바운드</td>
+<td>VM에 공인 IP 없다고 비용 없는 줄 착각</td>
+</tr>
+<tr>
+<td>로그/모니터링</td>
+<td>수집, 저장, 조회</td>
+<td>장기 보관 비용 누락</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>초보자 실수 표</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>실수</th>
+<th>왜 생기나</th>
+<th>문서에 넣어야 할 경고</th>
+</tr></thead><tbody>
+<tr>
+<td>VM 값만 보고 전체 비용이라 생각함</td>
+<td>디스크/네트워크를 따로 안 봄</td>
+<td>VM 비용은 전체의 일부일 뿐</td>
+</tr>
+<tr>
+<td>공인 IP 비용을 안 봄</td>
+<td>서버만 보면 된다고 생각함</td>
+<td>네트워크도 비용 항목</td>
+</tr>
+<tr>
+<td>로그를 무제한 저장함</td>
+<td>운영 편의만 생각함</td>
+<td>수집량&#183;보관량도 과금</td>
+</tr>
+<tr>
+<td>NAT/LB 비용을 누락함</td>
+<td>서버 수만 계산함</td>
+<td>중간 네트워크 장치도 과금</td>
+</tr>
+<tr>
+<td>계산기 수치가 실제 청구와 같다고 믿음</td>
+<td>추정값을 확정값처럼 해석</td>
+<td>실제 청구와 차이 가능</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>가격 문서에서 가장 중요한 공통 원칙</h2></header>
+
+</section>
+<section class="page-section" id="scenario" data-title="9. 추천 시나리오">
+<header class="main"><h1>9. 추천 시나리오</h1></header>
+<header class="major section-subhead"><h2>이 섹션의 목적</h2></header>
+<p>이 섹션에서는 AWS, Azure, GCP, NCP를 “누가 어떤 상황에서 쓰기 좋은가”라는 실전 관점으로 정리한다.</p>
+<p>비교의 핵심은 다음과 같다. - 입문자에게 어떤 클라우드가 이해하기 쉬운지 - 기업 환경에서는 무엇이 강한지 - 데이터/분석 중심에서는 어디가 강점이 두드러지는지 - 국내 서비스 운영에서는 어떤 선택지가 현실적인지 - 멀티클라우드 학습 관점에서 어떤 순서가 좋은지</p>
+<header class="major section-subhead"><h2>한줄 요약</h2></header>
+<p>클라우드는 절대적으로 하나가 우월하다기보다, 목적과 환경에 따라 더 잘 맞는 쪽이 달라진다.</p>
+<header class="major section-subhead"><h2>한눈 비교표</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>상황</th>
+<th>가장 먼저 떠올릴 후보</th>
+<th>이유</th>
+</tr></thead><tbody>
+<tr>
+<td>실무 범용성 / 레퍼런스 중시</td>
+<td>AWS</td>
+<td>시장 인지도, 서비스 폭, 자료량이 많음</td>
+</tr>
+<tr>
+<td>Microsoft 기업 환경</td>
+<td>Azure</td>
+<td>Windows, Entra ID, M365, 기업 IT 결합 강점</td>
+</tr>
+<tr>
+<td>구조 이해와 데이터/네트워크 학습</td>
+<td>GCP</td>
+<td>직관적 네이밍, 프로젝트/VPC 구조 이해에 유리</td>
+</tr>
+<tr>
+<td>국내 서비스 운영 / 국내 사용성</td>
+<td>NCP</td>
+<td>국내 환경 친화성, 원화 감각, 접근성</td>
+</tr>
+<tr>
+<td>입문 후 멀티클라우드 확장</td>
+<td>AWS + GCP / Azure 조합</td>
+<td>표준성 + 구조 비교 학습에 좋음</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>상황별 추천</h2></header>
+<p>입문자가 처음 클라우드를 배운다면</p>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>•</th>
+<th>이해 중심 입문: GCP</th>
+</tr></thead><tbody>
+<tr>
+<td>•</td>
+<td>실무 표준 감각 중심 입문: AWS</td>
+</tr>
+<tr>
+<td>•</td>
+<td>국내 친화적 입문: NCP</td>
+</tr>
+</tbody></table>
+</div>
+<p>기업 IT 환경과 잘 맞는 클라우드를 찾는다면</p>
+<p>기업 환경에서는 조직 단위 계정 관리, 권한 구조, Windows / AD / 오피스 계열 연계, 내부 시스템과의 호환성, 장기 운영과 정책 관리가 중요하다. 이 관점에서는 Azure가 강하게 떠오른다.</p>
+<p>실무 범용성과 시장 레퍼런스를 중시한다면</p>
+<p>이 경우 가장 먼저 떠올릴 후보는 보통 AWS다. 서비스 수가 매우 많고, 실무 사례와 자료가 풍부하며, 다양한 규모의 아키텍처 예시가 많기 때문이다.</p>
+<p>데이터 / 분석 / 네트워크 구조 학습을 중시한다면</p>
+<p>이 경우에는 GCP가 꽤 잘 맞는다. 서비스 이름이 비교적 직관적이고, 프로젝트 중심 구조가 분명하며, 네트워크 구조 설명이 선명하기 때문이다.</p>
+<p>국내 서비스 운영과 현실적인 접근성을 중시한다면</p>
+<p>이 경우에는 NCP를 별도 시나리오로 빼주는 것이 좋다. 국내 환경에서의 체감 접근성이 좋고, 원화 비용 감각이 편하며, 국내 문서/지원/운영 맥락과 연결하기 좋기 때문이다.</p>
+<p>멀티클라우드 학습 관점에서 본다면</p>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>•</th>
+<th>조합 A: AWS + GCP</th>
+</tr></thead><tbody>
+<tr>
+<td>•</td>
+<td>조합 B: AWS + Azure</td>
+</tr>
+<tr>
+<td>•</td>
+<td>조합 C: GCP + Azure</td>
+</tr>
+<tr>
+<td>•</td>
+<td>조합 D: AWS + NCP</td>
+</tr>
+</tbody></table>
+</div>
+<p>멀티클라우드는 서비스 수를 많이 아는 것보다, 같은 역할을 서로 다르게 구현하는 방식을 비교할 수 있느냐가 더 중요하다.</p>
+<header class="major section-subhead"><h2>시나리오 카드형 정리</h2></header>
+<div class="table-wrapper">
+<table>
+<thead><tr>
+<th>•</th>
+<th>실무 표준 감각이 필요할 때: AWS</th>
+</tr></thead><tbody>
+<tr>
+<td>•</td>
+<td>Microsoft 기업 환경이 중심일 때: Azure</td>
+</tr>
+<tr>
+<td>•</td>
+<td>개념을 구조적으로 배우고 싶을 때: GCP</td>
+</tr>
+<tr>
+<td>•</td>
+<td>국내 운영 현실성과 접근성이 중요할 때: NCP</td>
+</tr>
+</tbody></table>
+</div>
+<header class="major section-subhead"><h2>헷갈리기 쉬운 포인트</h2></header>
+
+</section>
+<section class="page-section" id="summary" data-title="10. 최종 요약 / 결론">
+<header class="main"><h1>10. 최종 요약 / 결론</h1></header>
+<header class="major section-subhead"><h2>이 섹션의 목적</h2></header>
+<p>이 섹션은 지금까지 비교한 AWS, Azure, GCP, NCP의 특징을 입문, 실무, 운영, 학습 확장 관점으로 다시 정리하는 장이다.</p>
+<header class="major section-subhead"><h2>한줄 결론</h2></header>
+<p>AWS, Azure, GCP, NCP는 모두 비슷한 인프라 기능을 제공하지만, 강점이 드러나는 환경과 학습 체감, 운영 관점은 서로 다르다.</p>
+<header class="major section-subhead"><h2>가장 먼저 기억해야 할 핵심</h2></header>
+
+</section>
+
+				</div>
+			</div>
+			<div id="sidebar">
+				<div class="inner">
+					<nav id="menu">
+						<header class="major"><h2>Menu</h2></header>
+						<ul>
+<li><a href="#home" data-section="home" class="active">홈</a></li>
+<li><a href="#concept" data-section="concept">1. 기본 개념 매핑</a></li>
+<li><a href="#compute" data-section="compute">2. 컴퓨트 비교</a></li>
+<li><a href="#network" data-section="network">3. 네트워크 비교</a></li>
+<li><a href="#storage" data-section="storage">4. 스토리지 비교</a></li>
+<li><a href="#database" data-section="database">5. 데이터베이스 비교</a></li>
+<li><a href="#iam" data-section="iam">6. IAM / 권한 관리 비교</a></li>
+<li><a href="#monitoring" data-section="monitoring">7. 모니터링 / 로깅 비교</a></li>
+<li><a href="#pricing" data-section="pricing">8. 가격 / 과금 비교</a></li>
+<li><a href="#scenario" data-section="scenario">9. 추천 시나리오</a></li>
+<li><a href="#summary" data-section="summary">10. 최종 요약 / 결론</a></li>
+
+						</ul>
+					</nav>
+					<section>
+						<header class="major"><h2>문서 기준</h2></header>
+						<p>서비스 이름보다 역할 기준으로 AWS, Azure, GCP, NCP를 비교하는 학습용 정리입니다.</p>
+					</section>
+					<footer id="footer">
+						<p class="copyright">Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+			(function() {
+				var sections = Array.prototype.slice.call(document.querySelectorAll('.page-section'));
+				var links = Array.prototype.slice.call(document.querySelectorAll('[data-section]'));
+				function showSection(id, updateHash) {
+					var target = document.getElementById(id) ? id : 'home';
+					sections.forEach(function(section) { section.classList.toggle('active', section.id === target); });
+					links.forEach(function(link) { link.classList.toggle('active', link.getAttribute('data-section') === target); });
+					window.scrollTo({ top: 0, behavior: 'smooth' });
+					if (updateHash && window.location.hash !== '#' + target) history.pushState(null, '', '#' + target);
+				}
+				links.forEach(function(link) {
+					link.addEventListener('click', function(event) {
+						event.preventDefault();
+						event.stopPropagation();
+						showSection(link.getAttribute('data-section'), true);
+					});
+				});
+				window.addEventListener('hashchange', function() { showSection((window.location.hash || '#home').slice(1), false); });
+				showSection((window.location.hash || '#home').slice(1), false);
+			})();
+		</script>
+	</body>
+</html>
