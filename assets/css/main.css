@@ -2344,3 +2344,46 @@ button,
     grid-template-columns: 1fr; }
 
 }
+
+/* Fixed desktop sidebar */
+@media screen and (min-width: 981px) {
+
+  html,
+  body {
+    height: 100%;
+    overflow: hidden; }
+
+  #wrapper {
+    height: 100vh;
+    min-height: 0;
+    overflow: hidden; }
+
+  #main {
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto; }
+
+  #sidebar {
+    height: 100vh;
+    left: auto;
+    overflow: hidden;
+    position: relative;
+    top: auto;
+    z-index: auto; }
+
+  #sidebar.inactive {
+    margin-left: 0; }
+
+  #sidebar > .inner {
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    left: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    top: auto; }
+
+  #sidebar .toggle {
+    display: none; }
+
+}
