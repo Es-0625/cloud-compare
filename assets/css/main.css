@@ -2387,3 +2387,62 @@ button,
     display: none; }
 
 }
+
+
+/* Document structure */
+.doc-section h3 {
+  color: #3d4449;
+  font-family: "Roboto Slab", serif;
+  font-size: 1.25em;
+  margin: 2.25em 0 1em 0;
+}
+
+.doc-section h4 {
+  color: #3d4449;
+  font-family: "Roboto Slab", serif;
+  font-size: 1.05em;
+  margin: 1.8em 0 0.8em 0;
+}
+
+.summary-box,
+.warning-box,
+.remember-box {
+  border: 1px solid rgba(210, 215, 217, 0.75);
+  border-radius: 8px;
+  margin: 0 0 2em 0;
+  padding: 1.25em 1.5em;
+}
+
+.summary-box {
+  background: #f7f9fb;
+}
+
+.warning-box {
+  background: #fffaf5;
+  border-left: 4px solid #f56a6a;
+}
+
+.remember-box {
+  background: #f7fbf9;
+  border-left: 4px solid #7f888f;
+}
+
+.summary-box > :last-child,
+.warning-box > :last-child,
+.remember-box > :last-child {
+  margin-bottom: 0;
+}
+
+.diagram {
+  background: #f7f9fb;
+  border: 1px solid rgba(210, 215, 217, 0.75);
+  border-radius: 8px;
+  color: #3d4449;
+  font-family: "Courier New", monospace;
+  font-size: 0.95em;
+  line-height: 1.65;
+  margin: 0 0 2em 0;
+  overflow-x: auto;
+  padding: 1.25em 1.5em;
+  white-space: pre;
+}
